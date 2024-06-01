@@ -12,8 +12,7 @@ public interface UserService {
     List<UserDTO> getAllUsers();
     Optional<UserDTO> getUser(long userId);
     void createUser(User user);
-
     Optional<User>getUserEntity(long id);
-
     Optional<User> addPostToUser(long userId, long postId);
+    List<UserDTO> getUsersWithMoreThanNPosts(long postCount);
 }

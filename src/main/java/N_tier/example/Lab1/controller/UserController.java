@@ -5,6 +5,7 @@ import N_tier.example.Lab1.entity.Post;
 import N_tier.example.Lab1.entity.User;
 import N_tier.example.Lab1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,12 @@ public class UserController {
         Optional<User> user = userService.addPostToUser(userId, postId);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/posts/{postCount}")
+    public ResponseEntity<List<UserDTO>> getUsersWithMoreThanNPosts(@PathVariable long postCount) {
+        List<UserDTO> users = userService.getUsersWithMoreThanNPosts(postCount);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 }

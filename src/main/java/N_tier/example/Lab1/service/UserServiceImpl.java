@@ -7,7 +7,6 @@ import N_tier.example.Lab1.repository.PostRepository;
 import N_tier.example.Lab1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,6 +56,14 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             return user;
         });
+    }
+
+    @Override
+    public List<UserDTO> getUsersWithMoreThanNPosts(long postCount) {
+        return userRepository.getUsersWithMoreThanNPosts(postCount)
+                .stream()
+                .map(UserDTO::new)
+                .collect(Collectors.toList());
     }
 }
 

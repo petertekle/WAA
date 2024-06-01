@@ -1,17 +1,13 @@
 package N_tier.example.Lab1.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
+import lombok.*;
 
-@AllArgsConstructor
-@Setter
-@Getter
-@NoArgsConstructor
-@Component
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Table(name = "posts")
 @Entity
 public class Post {
     @Id
@@ -21,6 +17,10 @@ public class Post {
     private String title;
     private String content;
     private String author;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    private List<Comment> comments = new ArrayList<>();
 
     @Override
     public String toString() {

@@ -2,28 +2,29 @@ package N_tier.example.Lab1.entity;
 
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "users")
 @Data
-public class User {
+@Entity
+@Table(name = "comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    List<Post> posts;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Comment{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", posts=" + posts +
                 '}';
     }
 }
